@@ -1,12 +1,8 @@
 package com.molbase.articlePush.data;
-
 import java.util.concurrent.ArrayBlockingQueue;
-
 import org.apache.log4j.Logger;
-
 import com.molbase.articlePush.Config;
 import com.molbase.articlePush.pojos.ArticleBean;
-
 public class DataRepertory {
 
 	private Logger logger = Logger.getLogger(DataRepertory.class);
@@ -20,7 +16,7 @@ public class DataRepertory {
 	private ArrayBlockingQueue<ArticleBean> queue = null;
 
 	private DataRepertory() {
-		queue = new ArrayBlockingQueue<ArticleBean>(10000);
+		queue = new ArrayBlockingQueue<ArticleBean>(2000);
 	}
 
 	private synchronized static void init() {
@@ -63,7 +59,7 @@ public class DataRepertory {
 		return queue.size();
 	}
 
-	class FetchDataThread extends Thread {
+	/*class FetchDataThread extends Thread {
 		@Override
 		public void run() {
 			while (flag) {
@@ -79,5 +75,5 @@ public class DataRepertory {
 				}
 			}
 		}
-	}
+	}*/
 }

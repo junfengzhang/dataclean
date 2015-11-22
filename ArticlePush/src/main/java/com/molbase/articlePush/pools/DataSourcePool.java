@@ -14,6 +14,7 @@ public class DataSourcePool {
 	
 	private DataSourcePool(){
 		basicDataSource = new BasicDataSource();
+		
 		basicDataSource.setUrl(Config.DATABASE_URL);
 		basicDataSource.setUsername(Config.USERNAME);
 		basicDataSource.setPassword(Config.PASSWORD);

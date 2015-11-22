@@ -1,4 +1,6 @@
 package com.molbase.articlePush;
+import java.util.Date;
+import java.util.Map;
 import java.util.Set;
 public class Config {
 
@@ -16,8 +18,18 @@ public class Config {
 	
 	public static String PASSWORD;
 	
-	private static Set<Integer> siteIds;
+	private static Set<Integer> siteIds;		
 	
+	private static Map<Integer, Date> lastscanTimeMap;
+	
+	public static Map<Integer, Date> getLastscanTimeMap() {
+		return lastscanTimeMap;
+	}
+
+	public static void setLastscanTimeMap(Map<Integer, Date> lastscanTimeMap) {
+		Config.lastscanTimeMap = lastscanTimeMap;
+	}
+
 	public static Set<Integer> getSiteIds() {
 		return siteIds;
 	}
