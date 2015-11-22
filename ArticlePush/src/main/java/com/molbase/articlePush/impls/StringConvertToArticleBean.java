@@ -2,9 +2,6 @@ package com.molbase.articlePush.impls;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-
-import sun.org.mozilla.javascript.internal.ast.NewExpression;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.molbase.articlePush.ArticlePushException;
 import com.molbase.articlePush.MD5Utils;
