@@ -18,6 +18,10 @@ public class Config {
 	
 	public static String PASSWORD;
 	
+	public static String ATICLE_URL;
+	
+	public static String NOTE_URL;
+		
 	private static Set<Integer> siteIds;		
 	
 	private static Map<Integer, Date> lastscanTimeMap;
@@ -92,5 +96,21 @@ public class Config {
 
 	public static void setPASSWORD(String pASSWORD) {
 		PASSWORD = pASSWORD;
+	}
+
+	public static String getATICLE_URL() {
+		return ATICLE_URL;
+	}
+
+	public static void setATICLE_URL(String aTICLE_URL) {
+		ATICLE_URL = aTICLE_URL;
+	}
+
+	public static String getNOTE_URL() {
+		return NOTE_URL;
+	}
+
+	public static void setNOTE_URL(String nOTE_URL) {
+		NOTE_URL = nOTE_URL;
 	}
 }

@@ -1,12 +1,17 @@
 package com.molbase.articlePush.impls;
+import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.molbase.articlePush.ArticlePushException;
 import com.molbase.articlePush.ConfigUtils;
 import com.molbase.articlePush.MD5Utils;
 import com.molbase.articlePush.interfaces.ArticleDataConvertor;
 import com.molbase.articlePush.pojos.ArticleBean;
+import com.molbase.articlePush.pojos.ResultMsg;
 public class StringConvertToArticleBean implements ArticleDataConvertor {
 		
 	private static ObjectMapper om = new ObjectMapper();
@@ -30,9 +35,17 @@ public class StringConvertToArticleBean implements ArticleDataConvertor {
 			
 			return bean;
 		} catch (Exception e) {						
-			throw new ArticlePushException("",e);
-		}
-		
+			throw new ArticlePushException("转换到ArticleBean出错",e);
+		}		
 	}
 
+	public static ResultMsg msgConvertor(String values) throws ArticlePushException{		
+		try {
+			return om.readValue(values, ResultMsg.class);
+		} catch (Exception e) {
+			throw new ArticlePushException("转换到ResultMsg出错",e);
+		}
+	}
+	
+	
 }
