@@ -16,6 +16,7 @@ public class HttpClientPool {
 			pcm.setMaxTotal(400);
 			pcm.setDefaultMaxPerRoute(pcm.getMaxTotal());		
 			pcm.setValidateAfterInactivity(1000);
+			
 		}
 		
 		Builder configBuilder = RequestConfig.custom().setConnectionRequestTimeout(3000).setConnectTimeout(3000).setSocketTimeout(3000);		

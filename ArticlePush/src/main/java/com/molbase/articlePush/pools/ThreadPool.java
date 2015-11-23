@@ -12,8 +12,8 @@ public class ThreadPool{
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private ThreadPool(){
-		service = new ThreadPoolExecutor(50,
-				150,
+		service = new ThreadPoolExecutor(20,
+				100,
 				5, TimeUnit.SECONDS,
 				new ArrayBlockingQueue(100),				
 				new ThreadPoolExecutor.AbortPolicy());

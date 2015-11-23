@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import com.molbase.articlePush.pools.ThreadPool;
 import com.molbase.articlePush.tasks.FetchArticlesTask;
+import com.molbase.articlePush.tasks.PublishArticleTask;
 public class PushController {
 	
 	private static PushController controller;
@@ -11,6 +12,8 @@ public class PushController {
 	private Set<Integer> siteIds;
 	
 	private ExecutorService services;
+	
+	private int consumeThreadSize = 10;
 	
 	private PushController(){		
 		siteIds = new HashSet<Integer>();
@@ -26,7 +29,7 @@ public class PushController {
 	}
 	
 	
-	public PushController getInstance(){		
+	public static PushController getInstance(){		
 		if(controller == null){
 			init();
 		}		
@@ -57,11 +60,33 @@ public class PushController {
 	}
 	
 	
-	public void startPush(){		
+	public void startPush(){
+		
+		//init()初始化所有参数
+		ConfigUtils.initConfig();
 		siteIds.addAll(Config.getSiteIds());
 		for(Integer id : siteIds){
 			services.submit(new FetchArticlesTask(id));			
+		}
+		
+		for(int i=0;i < consumeThreadSize;i++){
+			services.submit(new PublishArticleTask());
 		}		
+	}
+	
+	public void stop(){
+		if(!services.isShutdown()){
+			services.shutdown();
+		}
+	}
+	
+	
+	public int getConsumeThreadSize() {
+		return consumeThreadSize;
+	}
+
+	public void setConsumeThreadSize(int consumeThreadSize) {
+		this.consumeThreadSize = consumeThreadSize;
 	}
 	
 	
