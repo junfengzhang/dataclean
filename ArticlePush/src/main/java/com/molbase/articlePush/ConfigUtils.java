@@ -72,16 +72,16 @@ public class ConfigUtils {
 		try{
 			props.load(input);
 			
-			Config.setDATABASE_URL(props.getProperty("JDBC_URL"));
-			Config.setUSERNAME(props.getProperty("USERNAME"));
-			Config.setPASSWORD(props.getProperty("PASSWORD"));
-			Config.setMIN_SIZE(Integer.parseInt(props.getProperty("MIN_SIZE")));
-			Config.setINTERVAL(Integer.parseInt(props.getProperty("INTERVAL")));
-			Config.setFETCH_SIZE(Integer.parseInt(props.getProperty("FETCH_SIZE")));
-			Config.setQUEUE_SIZE(Integer.parseInt(props.getProperty("QUEUE_SIZE")));
+			Config.setDATABASE_URL(props.getProperty("JDBC_URL").trim());
+			Config.setUSERNAME(props.getProperty("USERNAME").trim());
+			Config.setPASSWORD(props.getProperty("PASSWORD").trim());
+			Config.setMIN_SIZE("".equals(props.getProperty("MIN_SIZE")) ? 0 : Integer.parseInt(props.getProperty("MIN_SIZE").trim()));
+			Config.setINTERVAL("".equals(props.getProperty("INTERVAL")) ? 0 : Integer.parseInt(props.getProperty("INTERVAL").trim()));
+			Config.setFETCH_SIZE("".equals(props.getProperty("FETCH_SIZE")) ? 0 : Integer.parseInt(props.getProperty("FETCH_SIZE").trim()));
+			Config.setQUEUE_SIZE("".equals(props.getProperty("QUEUE_SIZE")) ? 0 : Integer.parseInt(props.getProperty("QUEUE_SIZE").trim()));
 			
 //			SITE_IDS
-			String siteIds = props.getProperty("SITE_IDS");
+			String siteIds = props.getProperty("SITE_IDS").trim();
 			Set<Integer> set = new HashSet<Integer>();
 			for(String id : siteIds.split(",")){				
 				set.add(Integer.parseInt(id));
@@ -89,8 +89,8 @@ public class ConfigUtils {
 			Config.setSiteIds(set);
 			
 			//LastTime Maps
-			String lastTimes = props.getProperty("LAST_TIMES");			
-			Pattern p = Pattern.compile(".*({\\d+=[\\d ]+}).*");
+			String lastTimes = props.getProperty("LAST_TIMES").trim();			
+			Pattern p = Pattern.compile(".*(\\{\\d+=[\\d :-]+\\}).*");
 			Matcher m = p.matcher(lastTimes);
 			if(m.matches()){
 				int count = m.groupCount();
