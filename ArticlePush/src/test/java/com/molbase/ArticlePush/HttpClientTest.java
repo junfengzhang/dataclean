@@ -9,8 +9,7 @@ public class HttpClientTest {
 	@Test
 	public void test(){
 		
-		PoolingHttpClientConnectionManager manager = new PoolingHttpClientConnectionManager();
-		
+		PoolingHttpClientConnectionManager manager = new PoolingHttpClientConnectionManager();		
 		manager.setMaxTotal(200);
 	    // 将每个路由基础的连接增加到20
 		manager.setDefaultMaxPerRoute(20);
