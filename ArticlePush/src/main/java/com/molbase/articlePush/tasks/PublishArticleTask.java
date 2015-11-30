@@ -2,6 +2,7 @@ package com.molbase.articlePush.tasks;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
+import org.apache.log4j.Logger;
 import com.molbase.articlePush.Config;
 import com.molbase.articlePush.data.DataRepertory;
 import com.molbase.articlePush.http.HttpRequestAssist;
@@ -9,7 +10,8 @@ import com.molbase.articlePush.pojos.ArticleBean;
 import com.molbase.articlePush.pojos.ResultMsg;
 public class PublishArticleTask implements Callable<String> {
 	
-		
+	private Logger logger = Logger.getLogger(PublishArticleTask.class);	
+	
 	public String call() throws Exception {		
 		DataRepertory dataRep = DataRepertory.getInstance();
 		ArticleBean bean = null;
@@ -27,8 +29,8 @@ public class PublishArticleTask implements Callable<String> {
 			map.put("token", bean.getToken());
 			map.put("htmlon", bean.getHtmlon());
 			rm = HttpRequestAssist.post(map, Config.ATICLE_URL);	
-			if(!("1".equals(rm.getCode()))){
-				
+			if(!("1".equals(rm.getCode().trim()))){
+				logger.error(String.format("----文章发布出错，标题：%s,文章作者：%s，文章所述频道：%s，文章发布时间：%s ", bean.getTitle(),bean.getAuthor(),bean.getCatid(),bean.getDateline()));							
 			}
 		}
 	}

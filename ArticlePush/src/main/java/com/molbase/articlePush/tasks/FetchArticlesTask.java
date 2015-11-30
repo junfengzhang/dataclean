@@ -1,5 +1,4 @@
 package com.molbase.articlePush.tasks;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,15 +36,13 @@ public class FetchArticlesTask implements Callable<String> {
 			while (true) {				
 				if(!(rep.size() < Config.MIN_SIZE)){
 					Thread.sleep(Config.INTERVAL * 1000);
-				}
-				
+				}				
 				pst = connection.prepareStatement(
 						"select _value,update_time from common_data where site_id = ? and update_time >= ? limit 0,200");
 				pst.setInt(1, site_id);
 				pst.setTimestamp(2, new Timestamp(lastScanDate.getTime()));
 				resultSet = pst.executeQuery();
-				ArticleBean bean = null;
-				
+				ArticleBean bean = null;				
 				while (resultSet.next()) {
 					// 如果出现错误，记录这一次扫描的时间，以便程序以此时间开始，重新扫描
 					lastScanDate = resultSet.getDate(2);
@@ -54,7 +51,7 @@ public class FetchArticlesTask implements Callable<String> {
 				}
 			}
 		} catch (Exception e) {
-			logger.error(String.format("获取网站ID：%s数据出错，最后扫描时间：%s", site_id,lastScanDate), e);			
+			logger.error(String.format("获取网站ID：%s数据出错，最后扫描时间：%s", site_id,lastScanDate), e);				
 		} finally {
 			resultSet.close();
 			pst.close();

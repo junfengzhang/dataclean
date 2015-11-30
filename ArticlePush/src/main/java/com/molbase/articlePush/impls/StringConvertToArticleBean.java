@@ -27,8 +27,7 @@ public class StringConvertToArticleBean implements ArticleDataConvertor {
 			String dateLine = ConfigUtils.sdf.format(new Date());
 			bean.setDateline(dateLine);
 			bean.setToken(MD5Utils.md5sign(dateLine + "molbase2015"));
-			bean.setHtmlon("0");
-			
+			bean.setHtmlon("0");			
 			return bean;
 		} catch (Exception e) {						
 			throw new ArticlePushException("转换到ArticleBean出错",e);
