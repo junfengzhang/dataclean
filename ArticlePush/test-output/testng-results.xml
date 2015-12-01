@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="5375" started-at="2015-11-30T06:20:46Z" finished-at="2015-11-30T06:20:51Z">
+  <suite name="Default suite" duration-ms="32" started-at="2015-12-01T11:36:07Z" finished-at="2015-12-01T11:36:07Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="5375" started-at="2015-11-30T06:20:46Z" finished-at="2015-11-30T06:20:51Z">
-      <class name="com.molbase.ArticlePush.TestCRMInterface">
-        <test-method status="PASS" signature="testConsumeCrm()[pri:0, instance:com.molbase.ArticlePush.TestCRMInterface@27f53ee3]" name="testConsumeCrm" duration-ms="5366" started-at="2015-11-30T14:20:46Z" finished-at="2015-11-30T14:20:51Z">
+    <test name="Default test" duration-ms="32" started-at="2015-12-01T11:36:07Z" finished-at="2015-12-01T11:36:07Z">
+      <class name="com.molbase.ArticlePush.PatternTest">
+        <test-method status="PASS" signature="test3()[pri:0, instance:com.molbase.ArticlePush.PatternTest@1bba6451]" name="test3" duration-ms="22" started-at="2015-12-01T19:36:07Z" finished-at="2015-12-01T19:36:07Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testConsumeCrm -->
-      </class> <!-- com.molbase.ArticlePush.TestCRMInterface -->
+        </test-method> <!-- test3 -->
+      </class> <!-- com.molbase.ArticlePush.PatternTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
