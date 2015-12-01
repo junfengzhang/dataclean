@@ -20,6 +20,16 @@ public class ArticleBean {
 	
 	private String htmlon;//值为:0不允许运行html代码1允许运行html代码,默认为0
 
+	private String site_id;
+	
+	public String getSite_id() {
+		return site_id;
+	}
+
+	public void setSite_id(String site_id) {
+		this.site_id = site_id;
+	}
+
 	public String getUsername() {
 		return username;
 	}

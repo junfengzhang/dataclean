@@ -1,6 +1,7 @@
 package com.molbase.articlePush.impls;
 import java.util.Date;
 import java.util.Map;
+import org.apache.log4j.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.molbase.articlePush.ArticlePushException;
 import com.molbase.articlePush.ConfigUtils;
@@ -10,17 +11,23 @@ import com.molbase.articlePush.pojos.ArticleBean;
 import com.molbase.articlePush.pojos.ResultMsg;
 public class StringConvertToArticleBean implements ArticleDataConvertor {
 		
-	private static ObjectMapper om = new ObjectMapper();
+	private static ObjectMapper om = new ObjectMapper();	
+	private Logger logger = Logger.getLogger(StringConvertToArticleBean.class);
 	
-	@SuppressWarnings("unchecked")
-	public ArticleBean convertor(String value) throws ArticlePushException {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public ArticleBean convertor(String value){
 		
 		try {
-			Map<String, String> map = om.readValue(value, Map.class);
+			Map<String, Object> map = om.readValue(value, Map.class);			
+			if(!map.containsKey("article")){
+				return null;
+			}
+			Map<String, String> articleMap = (Map)map.get("article");
+			
 			ArticleBean bean = new ArticleBean();							
-			bean.setContent(map.get("content"));
-			bean.setTitle(map.get("title"));
-			bean.setSummary(map.get("description"));
+			bean.setContent(articleMap.get("content"));
+			bean.setTitle(articleMap.get("title"));
+			bean.setSummary(articleMap.get("description"));
 			bean.setUsername("admin");
 			bean.setCatid("14");
 			
@@ -30,7 +37,8 @@ public class StringConvertToArticleBean implements ArticleDataConvertor {
 			bean.setHtmlon("0");			
 			return bean;
 		} catch (Exception e) {						
-			throw new ArticlePushException("转换到ArticleBean出错",e);
+			logger.error("转换到ArticleBean出错",e);
+			return null;
 		}		
 	}
 

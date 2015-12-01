@@ -9,9 +9,9 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
+import org.apache.http.StatusLine;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -19,7 +19,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
-
 import com.molbase.articlePush.impls.StringConvertToArticleBean;
 import com.molbase.articlePush.pojos.ResultMsg;
 
@@ -38,9 +37,15 @@ public class HttpRequestAssist {
 				}
 				post.setEntity(new UrlEncodedFormEntity(nvps, "UTF-8"));
 				CloseableHttpResponse response = client.execute(post);
-				HttpEntity entity = response.getEntity();
-				return StringConvertToArticleBean
-						.msgConvertor(consumeEntity(entity));
+				
+				StatusLine status = response.getStatusLine();
+				if(status.getStatusCode() == 200){
+					HttpEntity entity = response.getEntity();					
+					return StringConvertToArticleBean
+							.msgConvertor(consumeEntity(entity));
+				}else{
+					logger.error(String.format("请求URL:%s时状态码不正确", url));
+				}
 			} else {
 				ResultMsg msg = new ResultMsg();
 				msg.setMsg("参数为空");

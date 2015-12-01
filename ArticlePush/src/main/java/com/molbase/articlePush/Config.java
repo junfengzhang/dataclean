@@ -12,8 +12,10 @@ public class Config {
 		
 	public static int INTERVAL;//扫描数据间隔 单位秒
 	
-	public static String DATABASE_URL;
+	public static int CONSUMER_SIZE;
 	
+	public static String DATABASE_URL;
+		
 	public static String USERNAME;
 	
 	public static String PASSWORD;
@@ -26,6 +28,14 @@ public class Config {
 	
 	private static Map<Integer, Date> lastscanTimeMap;
 	
+	public static int getCONSUMER_SIZE() {
+		return CONSUMER_SIZE;
+	}
+
+	public static void setCONSUMER_SIZE(int cONSUMER_SIZE) {
+		CONSUMER_SIZE = cONSUMER_SIZE;
+	}
+		
 	public static Map<Integer, Date> getLastscanTimeMap() {
 		return lastscanTimeMap;
 	}

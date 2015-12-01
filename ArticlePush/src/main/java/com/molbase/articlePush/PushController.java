@@ -13,7 +13,7 @@ public class PushController {
 	
 	private ExecutorService services;
 	
-	private int consumeThreadSize = 10;
+	private int consumeThreadSize = 1;
 	
 	private PushController(){		
 		siteIds = new HashSet<Integer>();
@@ -63,6 +63,7 @@ public class PushController {
 	public void startPush(){
 		
 		//init()初始化所有参数
+		System.out.println("startpush....");
 		ConfigUtils.initConfig();
 		siteIds.addAll(Config.getSiteIds());
 		for(Integer id : siteIds){

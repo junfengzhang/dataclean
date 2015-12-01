@@ -10,15 +10,14 @@ import com.molbase.articlePush.pojos.ArticleBean;
 import com.molbase.articlePush.pojos.ResultMsg;
 public class PublishArticleTask implements Callable<String> {
 	
-	private Logger logger = Logger.getLogger(PublishArticleTask.class);	
-	
+	private Logger logger = Logger.getLogger(PublishArticleTask.class);		
 	public String call() throws Exception {		
 		DataRepertory dataRep = DataRepertory.getInstance();
 		ArticleBean bean = null;
 		Map<String, String> map = new HashMap<String, String>();
 		ResultMsg rm = null;
 		while(true){			
-			bean = dataRep.take();//如果没有数据就阻塞			
+			bean = dataRep.take();//如果没有数据就阻塞					
 			map.put("username", bean.getUsername());
 			map.put("title", bean.getTitle());
 			map.put("content", bean.getContent());
@@ -29,8 +28,8 @@ public class PublishArticleTask implements Callable<String> {
 			map.put("token", bean.getToken());
 			map.put("htmlon", bean.getHtmlon());
 			rm = HttpRequestAssist.post(map, Config.ATICLE_URL);	
-			if(!("1".equals(rm.getCode().trim()))){
-				logger.error(String.format("----文章发布出错，标题：%s,文章作者：%s，文章所述频道：%s，文章发布时间：%s ", bean.getTitle(),bean.getAuthor(),bean.getCatid(),bean.getDateline()));							
+			if(rm == null || !("1".equals(rm.getCode().trim()))){
+				logger.error(String.format("----文章发布出错，标题：%s,文章作者：%s，文章所述频道：%s，文章发布时间：%s ,site_id:%s", bean.getTitle(),bean.getAuthor(),bean.getCatid(),bean.getDateline(),bean.getSite_id()));							
 			}
 		}
 	}
